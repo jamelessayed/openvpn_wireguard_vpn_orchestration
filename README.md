@@ -1,4 +1,24 @@
----------------------Wireguard
+--In this enviroment you have 2 containers one runing wireguard, the other runing openvpn configurations
+--You can run each container seperately in you will find The Dockerfile in each file
+--Use docker compose in you are in a staging enviroment
+--Use gitlab-ci.yml if you are in a production enviroment
+
+--Note that you can use the apis after runing the containers and its up to you to copy the client configuration in the client host assuming that the one ur using the apis on 
+is gonna be the server
+
+--In the case of wireguard copy the client conf to /etc/wireguard after decoding it using this command :
+echo '' | base64 --decode
+wg-quick up client.conf
+
+--In case of openvpn
+echo '' | base64 --decode | sudo tee /etc/openvpn/client1.conf > /dev/null 
+sudo openvpn --config /etc/openvpn/client1.conf
+
+--Check the connectivity by pinging each the server and the client ips
+
+ENjoy ! :)
+
+---------------------------Wireguard
 
 Testing the API
 ------------------- Create a Tenant
@@ -30,7 +50,7 @@ curl -X POST http://127.0.0.1:5000/tenants/tenant1/peers -H "Content-Type: appli
 
 
 
---------------------OpenVPN
+------------------------------OpenVPN
 
 ------------Create a Server
 
