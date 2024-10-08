@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  openvpn:
+    build:
+      context: ./ovpn-setup
+    container_name: openvpn_container
+    volumes:
+      -  openvpn_data:/etc/openvpn
+    privileged: true
+    network_mode: host
+
+  wireguard:
+    build:
+      context: ./wireguard-setup
+    container_name: wireguard_container
+    volumes:
+      - wireguard_data:/etc/wireguard
+    privileged: true
+    network_mode: host
+volumes:
+  openvpn_data:
+  wireguard_data:
